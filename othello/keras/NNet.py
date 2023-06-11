@@ -1,16 +1,9 @@
-import argparse
 import os
-import shutil
-import time
-import random
 import numpy as np
-import math
 import sys
 sys.path.append('../..')
 from utils import *
 from NeuralNet import NeuralNet
-
-import argparse
 
 from .OthelloNNet import OthelloNNet as onnet
 
@@ -26,8 +19,8 @@ args = dotdict({
 class NNetWrapper(NeuralNet):
     def __init__(self, game):
         self.nnet = onnet(game, args)
-        self.board_x, self.board_y = game.getBoardSize()
-        self.action_size = game.getActionSize()
+        self.board_x, self.board_y = game.get_board_size()
+        self.action_size = game.get_action_size()
 
     def train(self, examples):
         """
@@ -43,16 +36,10 @@ class NNetWrapper(NeuralNet):
         """
         board: np array with board
         """
-        # timing
-        start = time.time()
-
         # preparing input
         board = board[np.newaxis, :, :]
-
-        # run
         pi, v = self.nnet.model.predict(board, verbose=False)
 
-        #print('PREDICTION TIME TAKEN : {0:03f}'.format(time.time()-start))
         return pi[0], v[0]
 
     def save_checkpoint(self, folder='checkpoint', filename='checkpoint.pth.tar'):

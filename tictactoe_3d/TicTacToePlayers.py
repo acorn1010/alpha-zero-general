@@ -14,10 +14,10 @@ class RandomPlayer():
         self.game = game
 
     def play(self, board):
-        a = np.random.randint(self.game.getActionSize())
-        valids = self.game.getValidMoves(board, 1)
+        a = np.random.randint(self.game.get_action_size())
+        valids = self.game.get_valid_moves(board, 1)
         while valids[a]!=1:
-            a = np.random.randint(self.game.getActionSize())
+            a = np.random.randint(self.game.get_action_size())
         return a
 
 
@@ -30,7 +30,7 @@ class HumanTicTacToePlayer():
         boardvalues = np.arange(self.n*self.n*self.n).reshape(self.n,self.n,self.n)
         validvalue = np.arange(self.n*self.n*self.n)
         # display(board)
-        valid = self.game.getValidMoves(board, 1)
+        valid = self.game.get_valid_moves(board, 1)
         for i in range(len(valid)):
             if valid[i] == 1:
                 action = validvalue[i]

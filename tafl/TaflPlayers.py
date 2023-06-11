@@ -6,10 +6,10 @@ class RandomTaflPlayer():
         self.game = game
 
     def play(self, board):
-        a = np.random.randint(self.game.getActionSize())
-        valids = self.game.getValidMoves(board, board.getPlayerToMove())
+        a = np.random.randint(self.game.get_action_size())
+        valids = self.game.get_valid_moves(board, board.getPlayerToMove())
         while valids[a]!=1:
-            a = np.random.randint(self.game.getActionSize())
+            a = np.random.randint(self.game.get_action_size())
         return a
 
 
@@ -19,7 +19,7 @@ class HumanTaflPlayer():
 
     def play(self, board):
         # display(board)
-        valid = self.game.getValidMoves(board, board.getPlayerToMove())
+        valid = self.game.get_valid_moves(board, board.getPlayerToMove())
         m=[]
         for i in range(len(valid)):
             if valid[i]:
@@ -43,12 +43,12 @@ class GreedyTaflPlayer():
         self.game = game
 
     def play(self, board):
-        valids = self.game.getValidMoves(board, board.getPlayerToMove())
+        valids = self.game.get_valid_moves(board, board.getPlayerToMove())
         candidates = []
-        for a in range(self.game.getActionSize()):
+        for a in range(self.game.get_action_size()):
             if valids[a]==0:
                 continue
-            nextBoard, _ = self.game.getNextState(board, board.getPlayerToMove(), a)
+            nextBoard, _ = self.game.get_next_state(board, board.getPlayerToMove(), a)
             score = self.game.getScore(nextBoard, board.getPlayerToMove())
             candidates += [(-score, a)]
         candidates.sort()

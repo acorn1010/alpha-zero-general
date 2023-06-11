@@ -31,8 +31,8 @@ class RTSNNet:
         from rts.src.config_class import CONFIG
 
         # game params
-        self.board_x, self.board_y, num_encoders = game.getBoardSize()
-        self.action_size = game.getActionSize()
+        self.board_x, self.board_y, num_encoders = game.get_board_size()
+        self.action_size = game.get_action_size()
 
         """
         num_encoders = CONFIG.nnet_args.encoder.num_encoders

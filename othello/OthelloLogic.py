@@ -55,7 +55,7 @@ class Board():
         # Get all the squares with pieces of the given color.
         for y in range(self.n):
             for x in range(self.n):
-                if self[x][y]==color:
+                if self[x][y] == color:
                     newmoves = self.get_moves_for_square((x,y))
                     moves.update(newmoves)
         return list(moves)

@@ -19,18 +19,17 @@ Based on the board for the game of Othello by Eric P. Nichols.
 class Board():
 
     # list of all 8 directions on the board, as (x,y) offsets
-    __directions = [(1,1),(1,0),(1,-1),(0,-1),(-1,-1),(-1,0),(-1,1),(0,1)]
+    __directions = [(1, 1), (1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1), (0, 1)]
 
     def __init__(self, n=3):
-        "Set up initial board configuration."
-
+        """Set up initial board configuration."""
         self.n = n
         # Create the empty board array.
-        self.pieces = np.zeros((n,n,n))
+        self.pieces = np.zeros((n, n, n), dtype=int)
 
     # add [][] indexer syntax to the Board
-    def __getitem__(self, index): 
-        index1 = [None,None,None]
+    def __getitem__(self, index):
+        index1 = [None, None, None]
         for i in range(3):
             index1[i] = str(index[i])
         for i in range(len(index1)):

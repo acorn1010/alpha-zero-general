@@ -32,8 +32,8 @@ class NNetWrapper(NeuralNet):
     def __init__(self, game):
         self.nnet = onnet(game, args)
         self.nnet.model.summary()
-        self.board_x, self.board_y = game.getBoardSize()
-        self.action_size = game.getActionSize()
+        self.board_x, self.board_y = game.get_board_size()
+        self.action_size = game.get_action_size()
 
     def train(self, examples):
         """

@@ -1,4 +1,9 @@
-class Game():
+from typing import Literal
+
+import numpy as np
+
+
+class Game:
     """
     This class specifies the base Game class. To define your own game, subclass
     this class and implement the functions below. This works when the game is
@@ -11,7 +16,7 @@ class Game():
     def __init__(self):
         pass
 
-    def getInitBoard(self):
+    def get_init_board(self):  # -> np.ndarray:
         """
         Returns:
             startBoard: a representation of the board (ideally this is the form
@@ -19,21 +24,23 @@ class Game():
         """
         pass
 
-    def getBoardSize(self):
+    def get_board_size(self) -> (int, int):
         """
         Returns:
-            (x,y): a tuple of board dimensions
+            (x, y): a tuple of board dimensions
         """
         pass
 
-    def getActionSize(self):
+    def get_action_size(self) -> int:
         """
         Returns:
             actionSize: number of all possible actions
         """
         pass
 
-    def getNextState(self, board, player, action):
+    def get_next_state(
+            self, board: np.ndarray, player: Literal[-1, 1], action)\
+            -> (np.ndarray, Literal[-1, 1]):
         """
         Input:
             board: current board
@@ -46,7 +53,7 @@ class Game():
         """
         pass
 
-    def getValidMoves(self, board, player):
+    def get_valid_moves(self, board: np.ndarray, player: Literal[-1, 1]) -> np.array:
         """
         Input:
             board: current board
@@ -59,7 +66,7 @@ class Game():
         """
         pass
 
-    def getGameEnded(self, board, player):
+    def get_game_ended(self, board: np.ndarray, player: Literal[-1, 1]) -> float:
         """
         Input:
             board: current board
@@ -72,7 +79,7 @@ class Game():
         """
         pass
 
-    def getCanonicalForm(self, board, player):
+    def get_canonical_form(self, board: np.ndarray, player: Literal[-1, 1]) -> np.ndarray:
         """
         Input:
             board: current board
@@ -88,7 +95,7 @@ class Game():
         """
         pass
 
-    def getSymmetries(self, board, pi):
+    def get_symmetries(self, board: np.ndarray, pi: list[float]) -> list[tuple[np.ndarray, list[float]]]:
         """
         Input:
             board: current board
@@ -101,7 +108,7 @@ class Game():
         """
         pass
 
-    def stringRepresentation(self, board):
+    def string_representation(self, board) -> str:
         """
         Input:
             board: current board

@@ -1,4 +1,6 @@
 from collections import namedtuple
+from typing import Literal
+
 import numpy as np
 
 DEFAULT_HEIGHT = 6
@@ -8,13 +10,13 @@ DEFAULT_WIN_LENGTH = 4
 WinState = namedtuple('WinState', 'is_ended winner')
 
 
-class Board():
+class Board:
     """
     Connect4 Board.
     """
 
     def __init__(self, height=None, width=None, win_length=None, np_pieces=None):
-        "Set up initial board configuration."
+        """Set up initial board configuration."""
         self.height = height or DEFAULT_HEIGHT
         self.width = width or DEFAULT_WIDTH
         self.win_length = win_length or DEFAULT_WIN_LENGTH
@@ -25,8 +27,8 @@ class Board():
             self.np_pieces = np_pieces
             assert self.np_pieces.shape == (self.height, self.width)
 
-    def add_stone(self, column, player):
-        "Create copy of board containing new stone."
+    def add_stone(self, column, player: Literal[-1, 1]):
+        """Create copy of board containing new stone."""
         available_idx, = np.where(self.np_pieces[:, column] == 0)
         if len(available_idx) == 0:
             raise ValueError("Can't play column %s on board %s" % (column, self))
@@ -34,7 +36,7 @@ class Board():
         self.np_pieces[available_idx[-1]][column] = player
 
     def get_valid_moves(self):
-        "Any zero value in top row in a valid move"
+        """Any zero value in top row in a valid move"""
         return self.np_pieces[0] == 0
 
     def get_win_state(self):

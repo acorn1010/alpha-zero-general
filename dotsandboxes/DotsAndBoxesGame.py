@@ -10,39 +10,39 @@ class DotsAndBoxesGame(Game):
     def __init__(self, n=3):
         self.n = n
 
-    def getInitBoard(self):
+    def get_init_board(self):
         # return initial board (numpy board)
         b = Board(self.n)
         return np.array(b.pieces)
 
-    def getBoardSize(self):
+    def get_board_size(self):
         # (a,b) tuple
-        return 2*self.n+1, self.n+1
+        return 2 * self.n + 1, self.n + 1
 
-    def getActionSize(self):
+    def get_action_size(self):
         # return number of actions
         return 2 * (self.n + 1) * self.n + 1
 
-    def getNextState(self, board, player, action):
+    def get_next_state(self, board, player, action):
         # if player takes action on board, return next (board,player)
         # action must be a valid move
         b = Board(self.n)
         b.pieces = np.copy(board)
 
-        if action == self.getActionSize() - 1:
+        if action == self.get_action_size() - 1:
             b.pieces[2, -1] = 0
         else:
             b.execute_move(action, player)
 
         return b.pieces, -player
 
-    def getValidMoves(self, board, player):
+    def get_valid_moves(self, board, player):
         # return a fixed size binary vector
         b = Board(self.n)
         b.pieces = np.copy(board)
-        return b.get_legal_moves(player)
+        return b.get_legal_moves()
 
-    def getGameEnded(self, board, player):
+    def get_game_ended(self, board, player):
         # return 0 if not ended, 1 if player 1 won, -1 if player 1 lost
         b = Board(self.n)
         b.pieces = np.copy(board)
@@ -56,7 +56,7 @@ class DotsAndBoxesGame(Game):
             player_1_won = b.pieces[0][-1] > b.pieces[1][-1]
             return 1*player if player_1_won else -1*player
 
-    def getCanonicalForm(self, board, player):
+    def get_canonical_form(self, board, player):
         board = np.copy(board)
         if player == -1:
             # swap score
@@ -65,7 +65,7 @@ class DotsAndBoxesGame(Game):
             board[1, -1] = aux
         return board
 
-    def getSymmetries(self, board, pi):
+    def get_symmetries(self, board, pi):
         # mirror, rotational
 
         horizontal = np.copy(board[:self.n+1, :self.n])
@@ -104,7 +104,7 @@ class DotsAndBoxesGame(Game):
             pi_vertical = aux
         return l
 
-    def stringRepresentation(self, board):
+    def string_representation(self, board):
         # 8x8 numpy array (canonical board)
         return board.tostring()
 

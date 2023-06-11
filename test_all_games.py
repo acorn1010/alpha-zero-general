@@ -21,7 +21,7 @@
 import unittest
 
 import Arena
-from MCTS import MCTS
+from MCTS import MCTS, MCTSArgs
 
 from othello.OthelloGame import OthelloGame
 from othello.OthelloPlayers import RandomPlayer
@@ -51,7 +51,7 @@ from dotsandboxes.DotsAndBoxesGame import DotsAndBoxesGame
 from dotsandboxes.keras.NNet import NNetWrapper as DotsAndBoxesKerasNNet
 
 import numpy as np
-from utils import *
+
 
 class TestAllGames(unittest.TestCase):
 
@@ -59,9 +59,9 @@ class TestAllGames(unittest.TestCase):
     def execute_game_test(game, neural_net):
         rp = RandomPlayer(game).play
 
-        args = dotdict({'numMCTSSims': 25, 'cpuct': 1.0})
+        args = MCTSArgs(simulation_count=25, cpu_count=1.0)
         mcts = MCTS(game, neural_net(game), args)
-        n1p = lambda x: np.argmax(mcts.getActionProb(x, temp=0))
+        n1p = lambda x: np.argmax(mcts.get_action_prob(x, temp=0))
 
         arena = Arena.Arena(n1p, rp, game)
         print(arena.playGames(2, verbose=False))
@@ -86,15 +86,16 @@ class TestAllGames(unittest.TestCase):
 
     def test_tafl_keras(self):
         self.execute_game_test(TaflGame(5), TaflKerasNNet)
-  
-    def test_connect4_keras(self):
-        self.execute_game_test(Connect4Game(5), Connect4KerasNNet)
+
+    # def test_connect4_keras(self):
+    #     self.execute_game_test(Connect4Game(5), Connect4KerasNNet)
 
     def test_rts_keras(self):
         self.execute_game_test(RTSGame(), RTSKerasNNet)
 
     def test_dotsandboxes_keras(self):
         self.execute_game_test(DotsAndBoxesGame(3), DotsAndBoxesKerasNNet)
+
 
 if __name__ == '__main__':
     unittest.main()

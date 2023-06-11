@@ -9,7 +9,7 @@ import unreal_engine as ue
 # noinspection PyUnresolvedReferences
 from TFPluginAPI import TFPluginAPI
 
-from MCTS import MCTS
+from MCTS import MCTS, MCTSArgs
 from rts.RTSGame import RTSGame
 from rts.keras.NNet import NNetWrapper as NNet
 from rts.src.config import ACTS_REV, NUM_ACTS
@@ -49,7 +49,7 @@ class TD2020LearnAPI(TFPluginAPI):
                 self.g = RTSGame()
                 n1 = NNet(self.g, OneHotEncoder())
                 n1.load_checkpoint(current_directory, 'best.pth.tar')
-                args = dotdict({'numMCTSSims': 2, 'cpuct': 1.0})
+                args = MCTSArgs(simulation_count=2, cpu_count=1.0)
                 self.mcts = MCTS(self.g, n1, args)
 
                 self.graph_var = graph
@@ -88,12 +88,12 @@ class TD2020LearnAPI(TFPluginAPI):
         ######
         with self.graph_var.as_default():
             with self.session_var.as_default():
-                self.g.setInitBoard(self.initial_board_config)
-                b = self.g.getInitBoard()
+                self.g.set_init_board(self.initial_board_config)
+                b = self.g.get_init_board()
 
-                def n1p(board): return np.argmax(self.mcts.getActionProb(board, temp=0))
+                def n1p(board): return np.argmax(self.mcts.get_action_prob(board, temp=0))
 
-                canonical_board = self.g.getCanonicalForm(b, self.owning_player)
+                canonical_board = self.g.get_canonical_form(b, self.owning_player)
 
                 recommended_act = n1p(canonical_board)
                 y, x, action_index = np.unravel_index(recommended_act, [b.shape[0], b.shape[0], NUM_ACTS])

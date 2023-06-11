@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import Arena
-from MCTS import MCTS
+from MCTS import MCTS, MCTSArgs
 from utils import dotdict
 from dotsandboxes.DotsAndBoxesGame import DotsAndBoxesGame
 from dotsandboxes.DotsAndBoxesPlayers import HumanDotsAndBoxesPlayer, RandomPlayer, GreedyRandomPlayer
@@ -22,15 +22,15 @@ grp2 = GreedyRandomPlayer(g).play
 numMCTSSims = 50
 n1 = NNetWrapper(g)
 n1.load_checkpoint(os.path.join('../', 'pretrained_models', 'dotsandboxes', 'keras', '3x3'), 'best.pth.tar')
-args1 = dotdict({'numMCTSSims': numMCTSSims, 'cpuct': 1.0})
+args1 = MCTSArgs(simulation_count=numMCTSSims, cpu_count=1.0)
 mcts1 = MCTS(g, n1, args1)
-n1p = lambda x: np.argmax(mcts1.getActionProb(x, temp=0))
+n1p = lambda x: np.argmax(mcts1.get_action_prob(x, temp=0))
 
 n2 = NNetWrapper(g)
 n2.load_checkpoint(os.path.join('../', 'pretrained_models', 'dotsandboxes', 'keras', '3x3'), 'best.pth.tar')
-args2 = dotdict({'numMCTSSims': numMCTSSims, 'cpuct': 1.0})
+args2 = MCTSArgs(simulation_count=numMCTSSims, cpu_count=1.0)
 mcts2 = MCTS(g, n2, args2)
-n2p = lambda x: np.argmax(mcts2.getActionProb(x, temp=0))
+n2p = lambda x: np.argmax(mcts2.get_action_prob(x, temp=0))
 
 # Play AlphaZero versus Human
 p1 = n1p

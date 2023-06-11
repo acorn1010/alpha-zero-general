@@ -1,10 +1,10 @@
 import numpy as np
 
 
-class Board():
+class Board:
 
     def __init__(self, n=5):
-        "Set up initial board configuration."
+        """Set up initial board configuration."""
         self.n = n
         self.pieces = np.zeros((2*n+1, n+1))
 
@@ -24,10 +24,8 @@ class Board():
     def toggle_pass(self, state=False):
         self.pieces[2, -1] = state
 
-    def get_legal_moves(self, color=1):
-        """Returns all the legal moves
-        @param color not used and came from previous version.
-        """
+    def get_legal_moves(self):
+        """Returns all the legal moves"""
         legal_moves = np.logical_not(self.pieces)
         legal_moves = np.hstack((legal_moves[:self.n+1, :-1].flatten(), legal_moves[-self.n:, :].flatten(), False))
         if self.is_pass_on():

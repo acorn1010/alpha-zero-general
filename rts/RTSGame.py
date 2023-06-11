@@ -27,14 +27,14 @@ class RTSGame:
 
         self.initial_board_config = CONFIG.initial_board_config
 
-    def setInitBoard(self, board_config) -> None:
+    def set_init_board(self, board_config) -> None:
         """
         Sets initial_board_config. This function can be used dynamically to change board configuration. It is currently being used by rts_ue4.py, to set board configuration from ue4 game state
         :param board_config: new initial board configuration
         """
         self.initial_board_config = board_config
 
-    def getInitBoard(self) -> np.ndarray:
+    def get_init_board(self) -> np.ndarray:
         """
         :return: Returns new board from initial_board_config. That config can be dynamically changed as game progresses.
         """
@@ -47,11 +47,11 @@ class RTSGame:
         b.pieces[:, :, TIME_IDX] = remaining_time
         return np.array(b.pieces)
 
-    def getBoardSize(self) -> Tuple[int, int, int]:
+    def get_board_size(self) -> Tuple[int, int, int]:
         # (a,b) tuple
         return self.n, self.n, NUM_ENCODERS
 
-    def getActionSize(self) -> int:
+    def get_action_size(self) -> int:
         return self.n * self.n * NUM_ACTS + 1
 
     def getNextState(self, board: np.ndarray, player: int, action: int) -> Tuple[np.ndarray, int]:
