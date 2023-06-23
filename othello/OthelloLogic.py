@@ -1,22 +1,9 @@
-'''
-Author: Eric P. Nichols
-Date: Feb 8, 2008.
-Board class.
-Board data:
-  1=white, -1=black, 0=empty
-  first dim is column , 2nd is row:
-     pieces[1][7] is the square in column 2,
-     at the opposite end of the board in row 8.
-Squares are stored and manipulated as (x,y) tuples.
-x is the column, y is the row.
-'''
-class Board():
-
+class Board:
     # list of all 8 directions on the board, as (x,y) offsets
-    __directions = [(1,1),(1,0),(1,-1),(0,-1),(-1,-1),(-1,0),(-1,1),(0,1)]
+    __directions = [(1, 1), (1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1), (0, 1)]
 
     def __init__(self, n):
-        "Set up initial board configuration."
+        """Set up initial board configuration."""
 
         self.n = n
         # Create the empty board array.
@@ -34,7 +21,7 @@ class Board():
     def __getitem__(self, index): 
         return self.pieces[index]
 
-    def countDiff(self, color):
+    def count_diff(self, color):
         """Counts the # pieces of the given color
         (1 for white, -1 for black, 0 for empty spaces)"""
         count = 0

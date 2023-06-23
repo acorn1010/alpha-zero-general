@@ -1,12 +1,15 @@
-import dataclasses
+from typing import TypeVar, NamedTuple
 import logging
 import math
-from typing import TypeVar
 
 import numpy as np
 
 from Game import Game
 from NeuralNet import NeuralNet
+
+
+T = TypeVar('T', bound=Game)
+NNetWrapper = TypeVar('NNetWrapper', bound=NeuralNet)
 
 # A very small positive number used to prevent division by 0.
 EPSILON = 1e-8
@@ -14,8 +17,7 @@ EPSILON = 1e-8
 log = logging.getLogger(__name__)
 
 
-@dataclasses.dataclass
-class MCTSArgs:
+class MCTSArgs(NamedTuple):
     # Number of MCTS simulations to run
     simulation_count: int
 
@@ -23,8 +25,6 @@ class MCTSArgs:
     cpu_count: float
 
 
-T = TypeVar('T', bound=Game)
-NNetWrapper = TypeVar('NNetWrapper', bound=NeuralNet)
 class MCTS:
     """
     This class handles the MCTS tree.

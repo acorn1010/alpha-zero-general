@@ -31,7 +31,7 @@ class Connect4Game(Game):
         return b.np_pieces, -player
 
     def get_valid_moves(self, board, player):
-        "Any zero value in top row in a valid move"
+        """Any zero value in top row in a valid move"""
         return self._base_board.with_np_pieces(np_pieces=board).get_valid_moves()
 
     def get_game_ended(self, board, player):

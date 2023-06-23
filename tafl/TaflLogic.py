@@ -33,8 +33,7 @@ class Board():
       b.done=self.done
       return b
 
-
-    def countDiff(self, color):
+    def count_diff(self, color):
         """Counts the # pieces of the given color
         (1 for white, -1 for black, 0 for empty spaces)"""
         count = 0

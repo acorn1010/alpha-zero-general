@@ -11,7 +11,7 @@ class Board:
     def __getitem__(self, index): 
         return self.pieces[index]
 
-    def get_legal_moves(self) -> list[(int, int)]:
+    def get_legal_moves(self) -> list[tuple[int, int]]:
         """Returns all the legal moves."""
         moves = set()  # stores the legal moves.
 

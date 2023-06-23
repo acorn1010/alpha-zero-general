@@ -1,6 +1,4 @@
 import sys
-from typing import Tuple
-
 import numpy as np
 
 from rts.src.config_class import CONFIG
@@ -47,14 +45,14 @@ class RTSGame:
         b.pieces[:, :, TIME_IDX] = remaining_time
         return np.array(b.pieces)
 
-    def get_board_size(self) -> Tuple[int, int, int]:
+    def get_board_size(self) -> tuple[int, int, int]:
         # (a,b) tuple
         return self.n, self.n, NUM_ENCODERS
 
     def get_action_size(self) -> int:
         return self.n * self.n * NUM_ACTS + 1
 
-    def getNextState(self, board: np.ndarray, player: int, action: int) -> Tuple[np.ndarray, int]:
+    def getNextState(self, board: np.ndarray, player: int, action: int) -> tuple[np.ndarray, int]:
         """
         Gets next state for board. It also updates tick for board as game tick iterations are transfered within board as 6. parameter
         :param board: current board

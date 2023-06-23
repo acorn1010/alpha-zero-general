@@ -15,15 +15,14 @@ class TaflGame(Game):
 
     def get_init_board(self):
         board=Board(Brandubh())
-        if self.name=="Brandubh": board=Board(Brandubh())
-        if self.name=="ArdRi": board=Board(ArdRi())
-        if self.name=="Tablut": board=Board(Tablut())
-        if self.name=="Tawlbwrdd": board=Board(Tawlbwrdd())
-        if self.name=="Hnefatafl": board=Board(Hnefatafl())
-        if self.name=="AleaEvangelii": board=Board(AleaEvangelii())
-        self.n=board.size         
+        if self.name == "Brandubh": board = Board(Brandubh())
+        if self.name == "ArdRi": board = Board(ArdRi())
+        if self.name == "Tablut": board = Board(Tablut())
+        if self.name == "Tawlbwrdd": board = Board(Tawlbwrdd())
+        if self.name == "Hnefatafl": board = Board(Hnefatafl())
+        if self.name == "AleaEvangelii": board = Board(AleaEvangelii())
+        self.n = board.size
         return board
-        
 
     def get_board_size(self):
         # (a,b) tuple
@@ -39,19 +38,19 @@ class TaflGame(Game):
         b = board.getCopy()
         move = int2base(action,self.n,4)
         b.execute_move(move, player)
-        return (b, -player)
+        return b, -player
 
     def get_valid_moves(self, board, player):
         # return a fixed size binary vector
-        #Note: Ignoreing the passed in player variable since we are not inverting colors for getCanonicalForm and Arena calls with constant 1.
-        valids = [0]*self.get_action_size()
+        # Note: Ignoring the passed in player variable since we are not inverting colors for getCanonicalForm and Arena calls with constant 1.
+        valids = [0] * self.get_action_size()
         b = board.getCopy()
-        legalMoves =  b.get_legal_moves(board.getPlayerToMove())
-        if len(legalMoves)==0:
-            valids[-1]=1
+        legal_moves = b.get_legal_moves(board.getPlayerToMove())
+        if len(legal_moves) == 0:
+            valids[-1] = 1
             return np.array(valids)
-        for x1, y1, x2, y2 in legalMoves:
-            valids[x1+y1*self.n+x2*self.n**2+y2*self.n**3]=1
+        for x1, y1, x2, y2 in legal_moves:
+            valids[x1 + y1 * self.n + x2 * self.n ** 2 + y2 * self.n ** 3] = 1
         return np.array(valids)
 
     def get_game_ended(self, board, player):
@@ -64,7 +63,7 @@ class TaflGame(Game):
         return b
 
     def get_symmetries(self, board, pi):
-        return [(board,pi)]
+        return [(board, pi)]
         # mirror, rotational
         #assert(len(pi) == self.n**4)  
         #pi_board = np.reshape(pi[:-1], (self.n, self.n))
@@ -81,12 +80,12 @@ class TaflGame(Game):
         #return l
 
     def string_representation(self, board):
-        #print("->",str(board))
         return str(board)
 
     def getScore(self, board, player):
-        if board.done: return 1000*board.done*player
-        return board.countDiff(player)
+        if board.done:
+            return 1_000 * board.done * player
+        return board.count_diff(player)
 
 
 

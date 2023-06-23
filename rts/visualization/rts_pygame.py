@@ -1,6 +1,6 @@
 import ctypes
 import sys
-from typing import Any, Tuple, Optional
+from typing import Any
 
 import numpy as np
 
@@ -33,7 +33,7 @@ def message_display(game_display, text, position, text_size, color=(0, 0, 0)) ->
     game_display.blit(text_surf, text_rect)
 
 
-def init_visuals(world_width: int, world_height: int, verbose=True) -> Optional[Tuple[Any, Any]]:
+def init_visuals(world_width: int, world_height: int, verbose=True) -> tuple[Any, Any] | None:
     """
     Creates canvas to draw upon and creates tick
     :param world_width: ...

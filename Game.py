@@ -108,7 +108,7 @@ class Game:
         """
         pass
 
-    def string_representation(self, board) -> str:
+    def string_representation(self, board: np.ndarray) -> str:
         """
         Input:
             board: current board
